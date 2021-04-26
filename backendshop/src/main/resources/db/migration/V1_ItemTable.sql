@@ -1,0 +1,10 @@
+CREATE TABLE Shop_Orders (ShopID uuid NOT NULL, OrdersID uuid NOT NULL, PRIMARY KEY (ShopID, OrdersID));
+CREATE TABLE OrderLine (Productid uuid NOT NULL, OrdersID uuid NOT NULL, Amount int8 NOT NULL, Price float8 NOT NULL, Total_price float4 NOT NULL);
+CREATE TABLE Orders (ID uuid NOT NULL, CustomerID uuid NOT NULL, timestamp timestamp NOT NULL, Total_price int4, PRIMARY KEY (ID));
+CREATE TABLE Product (ID uuid NOT NULL, ShopID uuid NOT NULL, Name varchar(255) NOT NULL, Description varchar(255), Buy_price float8 NOT NULL, Price float8 NOT NULL, Quantity int4 NOT NULL, Catagory varchar(255) NOT NULL, Type varchar(255) NOT NULL, Brand varchar(255) NOT NULL, Timestamp timestamp NOT NULL, PRIMARY KEY (ID));
+CREATE TABLE Shop (ID uuid NOT NULL, Name varchar(255) NOT NULL, Description varchar(255), Adress varchar(255) NOT NULL, City varchar(255) NOT NULL, Contact_nr int4 NOT NULL, Mail varchar(255) NOT NULL UNIQUE, Website varchar(255), PRIMARY KEY (ID));
+ALTER TABLE Shop_Orders ADD CONSTRAINT FKShop_Order465563 FOREIGN KEY (ShopID) REFERENCES Shop (ID);
+ALTER TABLE Product ADD CONSTRAINT FKProduct527580 FOREIGN KEY (ShopID) REFERENCES Shop (ID);
+ALTER TABLE Shop_Orders ADD CONSTRAINT FKShop_Order239520 FOREIGN KEY (OrdersID) REFERENCES Orders (ID);
+ALTER TABLE OrderLine ADD CONSTRAINT FKOrderLine217244 FOREIGN KEY (OrdersID) REFERENCES Orders (ID);
+ALTER TABLE OrderLine ADD CONSTRAINT FKOrderLine498017 FOREIGN KEY (Productid) REFERENCES Product (ID);
